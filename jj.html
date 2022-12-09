@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html dir="ltr">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0">
+	<title>fffff</title>
+	
+
+
+<script src="menufiles/jquery.min.js"></script>
+
+<style>
+.num {width:120px; background-color:#DFD;}
+.kicsi { font-size:12px;}
+</style>
+
+<script>
+var pref = [];
+	pref["yotta"] = 1E+24;
+	pref["zetta"] = 1E+21;
+	pref["exa"] = 1000000000000000000;
+	pref["peta"] = 1000000000000000;
+	pref["tera"] = 1000000000000;
+	pref["giga"] = 1000000000;
+	pref["mega"] = 1000000;
+	pref["kilo"] = 1000;
+	pref["hecto"] = 100;
+	pref["-"] = 1;
+	pref["milli"] = 0.001;
+	pref["micro"] = 0.000001;
+	pref["nano"] = 0.000000001;
+	pref["pico"] = 0.000000000001;
+	pref["femto"] = 0.000000000000001;
+	pref["atto"] = 0.000000000000000001;
+	pref["zepto"] = 1E-21;
+	pref["yocto"] = 1E-24;
+
+var jele = [];
+jele["yotta"] = "Y";
+jele["zetta"] = "Z";
+jele["exa"] = "E";
+jele["peta"] = "P";
+jele["tera"] = "T";
+jele["giga"] = "G";
+jele["mega"] = "M";
+jele["kilo"] = "k";
+jele["hecto"] = "h";
+jele["deka"] = "da";
+jele["-"] = "";
+jele["deci"] = "d";
+jele["centi"] = "c";
+jele["milli"] = "m";
+jele["micro"] = "µ";
+jele["nano"] = "n";
+jele["pico"] = "p";
+jele["femto"] = "f";
+jele["atto"] = "a";
+jele["zepto"] = "z";
+jele["yocto"] = "y";
+
+
+function vizual (n) {
+	s = n.toString();
+	res = s.split("e");
+	s1= parseFloat(res[0]);
+	if(res.length==2) {
+		s2 = res[1];
+		s2=s2.toString().replace('+','');
+		szep= s1+" × 10<sup>"+s2+"</sup>";
+	} else szep = s1;
+//	szep=szep.toString().replace('.',',');
+	return szep;
+}
+
+function szam(s) {
+	if(Math.abs(s)<10000000) n = s.toPrecision(14);
+	else n = s.toExponential(13);
+	var noZeroes = n.toString();
+	return vizual(noZeroes);
+}
+
+function szamolom(x) {
+	if(x.length<1) x="0";
+	x = x.replace(/,/g,'.');
+	x = x.replace(/pi/g,'Math.PI');
+	x = eval(x);
+	return(x);
+}
+
+function szamold() {
+	document.getElementById('eredmeny').innerHTML = '?';
+	
+	var num = szamolom(document.getElementById('num').value);
+	var mibol = document.getElementById('mibol').value;
+	var mibe = document.getElementById('mibe').value;
+	var v1 = pref[mibol];
+	var v2 = pref[mibe];
+	ertek = num*v1/v2;
+	var s=szam(num)+" ["+jele[mibol]+"*] = "+szam(ertek)+" ["+jele[mibe]+"*], (conversion number: "+szam(v1/v2)+").";
+	
+	document.getElementById('eredmeny').innerHTML = szam(ertek);
+	document.getElementById('eredmeny2').innerHTML = s;
+}
+
+
+</script>
+
+
+<script type="text/javascript">
+    
+</script>
+<script type="text/javascript" src="/menufiles/cookieconsent.min.js"></script>
+</head>
+<body>
+
+<div class="logo">
+	<a href="http://conversion.org/"><img src="images/logo.png" border="0"></a>
+</div>
+
+	<div style="max-width:990px; margin:auto;">
+       
+
+
+            
+        
+        <!-- End menu -->
+    </div>
+
+
+
+
+<div class="tartalom">
+
+  
+ 
+<p>
+  <input type="number" step="0.1" name="num" id="num" class="num">
+  <select name="mibol" id="mibol">
+    <option value="yotta">yotta [Y]</option>
+    <option value="zetta">zetta [Z]</option>
+    <option value="exa">exa [E]</option>
+    <option value="peta">peta [P]</option>
+    <option value="tera">tera [T]</option>
+    <option value="giga">giga [G]</option>
+    <option value="mega">mega [M]</option>
+    <option value="kilo">kilo [k]</option>
+    <option value="hecto">hecto [h]</option>
+    <option value="deka">deka [da]</option>
+    <option value="-">-</option>
+    <option value="deci">deci [d]</option>
+    <option selected value="centi">centi [c]</option>
+    <option value="milli">milli [m]</option>
+    <option value="micro">micro [µ]</option>
+    <option value="nano">nano [n]</option>
+    <option value="pico">pico [p]</option>
+    <option value="femto">femto [f]</option>
+    <option value="atto">atto [a]</option>
+    <option value="zepto">zepto [z]</option>
+    <option value="yocto">yocto [y]</option>
+  </select>
+  <input type="submit" name="button" id="button" value=" &nbsp;=&nbsp; " onClick="szamold();">
+  <span style="white-space:nowrap"><b id="eredmeny">?</b>
+  <select name="mibe" id="mibe">
+        <option value="yotta">yotta [Y]</option>
+        <option value="zetta">zetta [Z]</option>
+        <option value="exa">exa [E]</option>
+        <option value="peta">peta [P]</option>
+        <option value="tera">tera [T]</option>
+        <option value="giga">giga [G]</option>
+        <option value="mega">mega [M]</option>
+        <option value="kilo">kilo [k]</option>
+        <option value="hecto">hecto [h]</option>
+        <option value="-">-</option>
+        <option selected value="milli">milli [m]</option>
+        <option value="micro">micro [µ]</option>
+        <option value="nano">nano [n]</option>
+        <option value="pico">pico [p]</option>
+        <option value="femto">femto [f]</option>
+        <option value="atto">atto [a]</option>
+        <option value="zepto">zepto [z]</option>
+      <option value="yocto">yocto [y]</option>
+  </select>
+  </span></p>
+ 
+<p><b id="eredmeny2" style="color:#903">(result)</b></p>
+<hr>
+
+
+</ul>
+</div>
+
+
+
+  
+</div>
+
+
+<script>
+jQuery(document).ready(function() {
+var offset = 250;
+var duration = 300;
+jQuery(window).scroll(function() {
+if (jQuery(this).scrollTop() > offset) {
+jQuery('.back-to-top').fadeIn(duration);
+} else {
+jQuery('.back-to-top').fadeOut(duration);
+}
+});
+ 
+jQuery('.back-to-top').click(function(event) {
+event.preventDefault();
+jQuery('html, body').animate({scrollTop: 0}, duration);
+return false;
+})
+});
+</script>
+</body>
+</html>
